@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>aePeach Cart — Order Tracker</title>
+<meta name="description" content="Track your aePeach Cart group order by Telegram username.">
+<link rel="icon" href="assets/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Announcement bar -->
+<div class="announce" id="announceBar">
+  <div class="announce__inner">
+    <span class="announce__icon" aria-hidden="true">✨</span>
+    <p id="announceText" class="announce__text">Loading announcement…</p>
+    <button id="announceClose" class="announce__close" aria-label="Dismiss announcement">×</button>
+  </div>
+</div>
+
+<div class="bg-sparkles" aria-hidden="true"></div>
+
+<header class="hero">
+  <img src="assets/logo.jpg" alt="aePeach Cart logo" class="hero__logo">
+  <h1 class="hero__title">ae<span>Peach</span> Cart</h1>
+  <p class="hero__tagline">Order masterlist &amp; live tracker</p>
+</header>
+
+<main>
+
+  <!-- Search -->
+  <section class="card search-card" aria-labelledby="searchHeading">
+    <h2 id="searchHeading">Track your order 🍑</h2>
+    <p class="muted">Enter your Telegram username to see everything under your name.</p>
+    <form id="searchForm" class="search-form" autocomplete="off">
+      <div class="search-input-wrap">
+        <span class="search-at" aria-hidden="true">@</span>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="yourtelegramusername"
+          aria-label="Telegram username"
+          inputmode="text"
+        >
+      </div>
+      <button type="submit" class="btn btn--primary">Search</button>
+    </form>
+    <p id="searchMeta" class="search-meta" hidden></p>
+  </section>
+
+  <!-- Dashboard (appears after a search) -->
+  <section class="dashboard" id="dashboard" hidden aria-labelledby="dashboardHeading">
+    <h2 id="dashboardHeading" class="dashboard__title">Your order summary</h2>
+    <div class="stat-grid">
+      <div class="stat-card stat-card--total">
+        <span class="stat-card__icon" aria-hidden="true">🧾</span>
+        <span class="stat-card__num" id="statTotal">0</span>
+        <span class="stat-card__label">Total Orders</span>
+      </div>
+      <div class="stat-card stat-card--secured">
+        <span class="stat-card__icon" aria-hidden="true">🌱</span>
+        <span class="stat-card__num" id="statSecured">0</span>
+        <span class="stat-card__label">Secured</span>
+      </div>
+      <div class="stat-card stat-card--transit">
+        <span class="stat-card__icon" aria-hidden="true">🚚</span>
+        <span class="stat-card__num" id="statTransit">0</span>
+        <span class="stat-card__label">In Transit</span>
+      </div>
+      <div class="stat-card stat-card--postage">
+        <span class="stat-card__icon" aria-hidden="true">📦</span>
+        <span class="stat-card__num" id="statPostage">0</span>
+        <span class="stat-card__label">Ready for Postage</span>
+      </div>
+      <div class="stat-card stat-card--complete">
+        <span class="stat-card__icon" aria-hidden="true">🍑</span>
+        <span class="stat-card__num" id="statComplete">0</span>
+        <span class="stat-card__label">Complete</span>
+      </div>
+      <div class="stat-card stat-card--cancel">
+        <span class="stat-card__icon" aria-hidden="true">❌</span>
+        <span class="stat-card__num" id="statCancel">0</span>
+        <span class="stat-card__label">Cancel</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section class="results" id="results" aria-live="polite"></section>
+
+</main>
+
+<footer class="site-footer">
+  <p id="syncStatus" class="sync-status">Connecting to masterlist…</p>
+  <button id="refreshBtn" class="btn btn--ghost btn--small" type="button">↻ Refresh data</button>
+  <p class="footer-credit">made with 🍑 by aePeach Cart</p>
+</footer>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
