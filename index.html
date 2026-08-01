@@ -25,7 +25,8 @@
 <div class="bg-sparkles" aria-hidden="true"></div>
 
 <header class="hero">
-  <img src="assets/logo.jpg" alt="aePeach Cart logo" class="hero__logo">
+  <img src="assets/logo.jpg" alt="aePeach Cart logo" class="hero__logo"
+       onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'hero__logo hero__logo--fallback',textContent:'🍑',setAttribute:0}));">
   <h1 class="hero__title">ae<span>Peach</span> Cart</h1>
   <p class="hero__tagline">Order masterlist &amp; live tracker</p>
 </header>
