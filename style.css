@@ -325,6 +325,15 @@ main {
   flex: 1;
   min-width: 120px;
 }
+.order-row__qty {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--ink-muted);
+  background: var(--bg);
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
 
 .badge {
   font-size: 0.76rem;
