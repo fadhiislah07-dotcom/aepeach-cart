@@ -300,6 +300,8 @@ function renderResults(orders) {
             <div class="order-row__main">
               <span class="order-row__tag">${escapeHtml(o.tag || "—")}</span>
               <span class="order-row__item">${escapeHtml(o.item || "—")}</span>
+              <span class="order-row__qty">Qty: ${escapeHtml(o.qty || "—")}</span>
+              <span class="order-row__qty">Qty: ${escapeHtml(o.qty || "—")}</span>
               <span class="badge badge--${meta.cls}">${meta.emoji} ${escapeHtml(
             o.status
           )}</span>
