@@ -13,7 +13,7 @@ const CONFIG = {
   // The exact names of the tabs you want the site to read, as they
   // appear on the tabs at the bottom of your Google Sheet.
   // Add or remove tabs here any time — the site will combine them all.
-  tabs: ["KR BATCH", "CH BATCH"],
+  tabs: ["KR BATCH", "CH BATCH", "TH BATCH", "INA BATCH", "MY BATCH"],
 
   // ==========================================================
   // ANNOUNCEMENT BOXES — edit anytime, no coding needed.
