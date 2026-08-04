@@ -15,10 +15,23 @@ const CONFIG = {
   // Add or remove tabs here any time — the site will combine them all.
   tabs: ["KR BATCH", "CH BATCH"],
 
-  // Welcome / reminder message shown in the banner at the top.
-  // Safe to edit any time — supports plain text.
-  announcement:
-    "🍑 Welcome to aePeach Cart! Orders are updated regularly, please check back for status changes. Kindly settle payment within 24 hours of invoicing 💌",
+  // ==========================================================
+  // ANNOUNCEMENT BOXES — edit anytime, no coding needed.
+  // There are always exactly 2 boxes, shown under the "aePeach Cart"
+  // title. For each one, just change the text between the quotes:
+  //   emoji → one emoji shown on the left of the box
+  //   text  → the message shown next to it
+  // ==========================================================
+  announcements: [
+    {
+      emoji: "🍑",
+      text: "Welcome to aePeach Cart! Orders are updated regularly, please check back for status changes.",
+    },
+    {
+      emoji: "💌",
+      text: "Kindly settle payment within 24 hours of invoicing.",
+    },
+  ],
 
   // How the sheet is fetched. Leave this as "gviz" unless told otherwise.
   fetchMethod: "gviz",
