@@ -34,17 +34,25 @@ if (logoImg) {
 }
 
 /* ---------------- Announcement boxes ---------------- */
-// Reads CONFIG.announcements (from config.js) and fills in the two
-// permanent boxes under the title. Edit the text/emoji in config.js,
-// not here.
-document.getElementById("announceEmoji1").textContent =
-  CONFIG.announcements[0]?.emoji || "";
-document.getElementById("announceText1").textContent =
-  CONFIG.announcements[0]?.text || "";
-document.getElementById("announceEmoji2").textContent =
-  CONFIG.announcements[1]?.emoji || "";
-document.getElementById("announceText2").textContent =
-  CONFIG.announcements[1]?.text || "";
+// Reads CONFIG.announcements (from config.js) and builds one box per
+// entry. Add, remove, or edit entries in config.js — not here.
+// Colors cycle through 4 flat tones defined in style.css.
+const announcementsContainer = document.getElementById("announcements");
+(CONFIG.announcements || []).forEach((item, i) => {
+  const box = document.createElement("div");
+  box.className = `announcement-box announcement-box--c${(i % 4) + 1}`;
+
+  const emoji = document.createElement("span");
+  emoji.className = "announcement-box__emoji";
+  emoji.textContent = item.emoji || "";
+
+  const text = document.createElement("p");
+  text.className = "announcement-box__text";
+  text.textContent = item.text || "";
+
+  box.append(emoji, text);
+  announcementsContainer.appendChild(box);
+});
 
 /* ---------------- CSV parsing ---------------- */
 // Handles quoted fields containing commas/newlines, per RFC4180-ish CSV
