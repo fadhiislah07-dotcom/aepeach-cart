@@ -33,7 +33,7 @@ const CONFIG = {
     },
     {
       emoji: "📢",
-      text: "Type your third announcement here.",
+      text: "Please checkout your item that had exceeded 2 months!.",
     },
   ],
 
