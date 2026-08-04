@@ -112,6 +112,7 @@ function findHeaderAndMap(rows) {
     username: ["username"],
     item: ["item name", "item"],
     qty: ["qty", "quantity"],
+    ems: ["ems"],
     price: ["price"],
     payment: ["payment"],
     status: ["status"],
@@ -206,6 +207,7 @@ async function fetchTab(sheetId, tabName) {
       username,
       item,
       qty: get("qty"),
+      ems: get("ems"),
       price: get("price"),
       payment: get("payment"),
       statusRaw: get("status"),
@@ -301,6 +303,7 @@ function renderResults(orders) {
               <span class="order-row__tag">${escapeHtml(o.tag || "—")}</span>
               <span class="order-row__item">${escapeHtml(o.item || "—")}</span>
               <span class="order-row__qty">Qty: ${escapeHtml(o.qty || "—")}</span>
+              <span class="order-row__qty">EMS: ${escapeHtml(o.ems || "—")}</span>
               <span class="badge badge--${meta.cls}">${meta.emoji} ${escapeHtml(
             o.status
           )}</span>
