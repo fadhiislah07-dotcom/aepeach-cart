@@ -13,21 +13,29 @@
 </head>
 <body>
 
-<!-- Announcement bar -->
-<div class="announce" id="announceBar">
-  <div class="announce__inner">
-    <span class="announce__icon" aria-hidden="true">✨</span>
-    <p id="announceText" class="announce__text">Loading announcement…</p>
-    <button id="announceClose" class="announce__close" aria-label="Dismiss announcement">×</button>
-  </div>
-</div>
-
 <div class="bg-sparkles" aria-hidden="true"></div>
 
 <header class="hero">
   <img src="https://i.ibb.co/PGzPNH41/pcart.png" alt="aePeach Cart logo" class="hero__logo" id="logoImg">
   <h1 class="hero__title">ae<span>Peach</span> Cart</h1>
   <p class="hero__tagline">Order masterlist &amp; live tracker</p>
+
+  <!-- ============================================================
+       ANNOUNCEMENT BOXES
+       These two boxes are filled in automatically from config.js —
+       to change the emoji or text later, edit CONFIG.announcements
+       in config.js. Nothing here needs to change.
+       ============================================================ -->
+  <div class="announcements" id="announcements">
+    <div class="announcement-box announcement-box--one">
+      <span class="announcement-box__emoji" id="announceEmoji1"></span>
+      <p class="announcement-box__text" id="announceText1"></p>
+    </div>
+    <div class="announcement-box announcement-box--two">
+      <span class="announcement-box__emoji" id="announceEmoji2"></span>
+      <p class="announcement-box__text" id="announceText2"></p>
+    </div>
+  </div>
 </header>
 
 <main>
