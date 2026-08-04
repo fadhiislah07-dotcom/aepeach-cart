@@ -7,9 +7,6 @@
 let ALL_ORDERS = [];
 
 const els = {
-  announceBar: document.getElementById("announceBar"),
-  announceText: document.getElementById("announceText"),
-  announceClose: document.getElementById("announceClose"),
   searchForm: document.getElementById("searchForm"),
   searchInput: document.getElementById("searchInput"),
   searchMeta: document.getElementById("searchMeta"),
@@ -25,11 +22,29 @@ const els = {
   statCancel: document.getElementById("statCancel"),
 };
 
-/* ---------------- Announcement ---------------- */
-els.announceText.textContent = CONFIG.announcement;
-els.announceClose.addEventListener("click", () => {
-  els.announceBar.style.display = "none";
-});
+/* ---------------- Logo fallback ---------------- */
+const logoImg = document.getElementById("logoImg");
+if (logoImg) {
+  logoImg.addEventListener("error", () => {
+    const fallback = document.createElement("div");
+    fallback.className = "hero__logo hero__logo--fallback";
+    fallback.textContent = "🍑";
+    logoImg.replaceWith(fallback);
+  });
+}
+
+/* ---------------- Announcement boxes ---------------- */
+// Reads CONFIG.announcements (from config.js) and fills in the two
+// permanent boxes under the title. Edit the text/emoji in config.js,
+// not here.
+document.getElementById("announceEmoji1").textContent =
+  CONFIG.announcements[0]?.emoji || "";
+document.getElementById("announceText1").textContent =
+  CONFIG.announcements[0]?.text || "";
+document.getElementById("announceEmoji2").textContent =
+  CONFIG.announcements[1]?.emoji || "";
+document.getElementById("announceText2").textContent =
+  CONFIG.announcements[1]?.text || "";
 
 /* ---------------- CSV parsing ---------------- */
 // Handles quoted fields containing commas/newlines, per RFC4180-ish CSV
