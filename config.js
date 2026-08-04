@@ -29,11 +29,11 @@ const CONFIG = {
     },
     {
       emoji: "💌",
-      text: "Kindly settle payment within 24 hours of invoicing.",
+      text: "Kindly settle down your payment within 24 hours of invoicing. Please settle down your EMS before checkout.",
     },
     {
       emoji: "📢",
-      text: "Please checkout your item that had exceeded 2 months!.",
+      text: "Further information will be update here.",
     },
   ],
 
