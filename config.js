@@ -17,8 +17,8 @@ const CONFIG = {
 
   // ==========================================================
   // ANNOUNCEMENT BOXES — edit anytime, no coding needed.
-  // There are always exactly 2 boxes, shown under the "aePeach Cart"
-  // title. For each one, just change the text between the quotes:
+  // Shown under the "aePeach Cart" title. Add or remove boxes by
+  // adding/removing {emoji, text} entries below — any number works.
   //   emoji → one emoji shown on the left of the box
   //   text  → the message shown next to it
   // ==========================================================
@@ -30,6 +30,10 @@ const CONFIG = {
     {
       emoji: "💌",
       text: "Kindly settle payment within 24 hours of invoicing.",
+    },
+    {
+      emoji: "📢",
+      text: "Type your third announcement here.",
     },
   ],
 
