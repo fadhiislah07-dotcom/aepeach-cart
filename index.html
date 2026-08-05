@@ -10,12 +10,32 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script>
+  // Applies saved theme before first paint, avoiding a light-mode flash.
+  (function () {
+    var saved = localStorage.getItem("aepeach-theme");
+    if (saved === "dark" || saved === "light") {
+      document.documentElement.setAttribute("data-theme", saved);
+    } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  })();
+</script>
 </head>
 <body>
 
 <div class="bg-sparkles" aria-hidden="true"></div>
 
-<header class="hero">
+<!-- Sticky header box -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <img src="https://i.ibb.co/PGzPNH41/pcart.png" alt="" class="site-header__logo" aria-hidden="true">
+    <span class="site-header__name">aePeach Cart</span>
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</header>
+
+<section class="hero">
   <img src="https://i.ibb.co/PGzPNH41/pcart.png" alt="aePeach Cart logo" class="hero__logo" id="logoImg">
   <div class="hero__title-row">
     <h1 class="hero__title">ae<span>Peach</span> Cart</h1>
@@ -30,13 +50,13 @@
        in config.js. Nothing here needs to change.
        ============================================================ -->
   <div class="announcements" id="announcements"></div>
-</header>
+</section>
 
 <main>
 
   <!-- Search -->
   <section class="card search-card" aria-labelledby="searchHeading">
-    <h2 id="searchHeading">Track your order</h2>
+    <h2 id="searchHeading">Track your order 🍑</h2>
     <p class="muted">Enter your Telegram username to see everything under your name.</p>
     <form id="searchForm" class="search-form" autocomplete="off">
       <div class="search-input-wrap">
@@ -52,6 +72,18 @@
       <button type="submit" class="btn btn--primary">Search</button>
     </form>
     <p id="searchMeta" class="search-meta" hidden></p>
+
+    <div class="filter-row" id="filterRow" hidden>
+      <label for="statusFilter" class="filter-row__label">Filter by status:</label>
+      <select id="statusFilter" class="filter-select">
+        <option value="all">All Statuses</option>
+        <option value="Secured">Secured</option>
+        <option value="In Transit">In Transit</option>
+        <option value="Ready for Postage">Ready for Postage</option>
+        <option value="Complete">Complete</option>
+        <option value="Cancel">Cancel</option>
+      </select>
+    </div>
   </section>
 
   <!-- Dashboard (appears after a search) -->
