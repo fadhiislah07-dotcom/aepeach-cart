@@ -31,6 +31,30 @@
   --shadow-sm: 0 4px 14px -6px rgba(201, 75, 116, 0.2);
 }
 
+:root[data-theme="dark"] {
+  --bg: #1c1420;
+  --bg-card: #26192b;
+  --pink-soft: #3d2836;
+  --pink: #f6a8bf;
+  --pink-deep: #f091ac;
+  --pink-deeper: #ffb8cf;
+  --peach: #fbc28c;
+  --peach-deep: #f2a862;
+  --gold: #f3c57a;
+  --gold-deep: #f7d18f;
+  --lilac: #dba6cf;
+  --lilac-deep: #eabce0;
+  --leaf: #8fbf7b;
+  --leaf-deep: #a9d896;
+  --rose-muted: #c97b84;
+  --rose-muted-deep: #f0adb4;
+  --ink: #f3e6ec;
+  --ink-muted: #cba9b8;
+  --line: #3d2836;
+  --shadow: 0 10px 30px -12px rgba(0,0,0,0.55);
+  --shadow-sm: 0 4px 14px -6px rgba(0,0,0,0.45);
+}
+
 * { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
@@ -43,6 +67,7 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  transition: background-color 0.25s, color 0.25s;
 }
 
 /* Ambient sparkle backdrop */
@@ -104,6 +129,54 @@ h1, h2, h3 {
   font-size: 0.92rem;
   line-height: 1.5;
 }
+
+/* ---------------- Sticky header box ---------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+}
+.site-header__inner {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.site-header__logo {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: contain;
+  background: #fff;
+  padding: 3px;
+  flex-shrink: 0;
+}
+.site-header__name {
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 800;
+  color: var(--pink-deeper);
+  flex: 1;
+}
+.theme-toggle {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--pink-soft);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.theme-toggle:hover { border-color: var(--pink); }
 
 /* ---------------- Hero ---------------- */
 .hero {
@@ -235,6 +308,33 @@ main {
   font-weight: 700;
   color: var(--pink-deep);
 }
+
+/* ---------------- Status filter ---------------- */
+.filter-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.filter-row__label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+.filter-select {
+  background: var(--bg);
+  border: 2px solid var(--pink-soft);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+.filter-select:focus-visible { outline: 3px solid var(--pink-deep); outline-offset: 2px; }
 
 /* ---------------- Dashboard ---------------- */
 .dashboard__title { text-align: center; }
