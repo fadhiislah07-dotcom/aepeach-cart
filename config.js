@@ -31,10 +31,6 @@ const CONFIG = {
       emoji: "💌",
       text: "Kindly settle down your payment within 24 hours of invoicing. Please settle down your EMS before checkout.",
     },
-    {
-      emoji: "📢",
-      text: "Further information will be update here.",
-    },
   ],
 
   // How the sheet is fetched. Leave this as "gviz" unless told otherwise.
