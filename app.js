@@ -5,11 +5,14 @@
    ============================================================ */
 
 let ALL_ORDERS = [];
+let LAST_MATCHES = [];
 
 const els = {
   searchForm: document.getElementById("searchForm"),
   searchInput: document.getElementById("searchInput"),
   searchMeta: document.getElementById("searchMeta"),
+  filterRow: document.getElementById("filterRow"),
+  statusFilter: document.getElementById("statusFilter"),
   dashboard: document.getElementById("dashboard"),
   results: document.getElementById("results"),
   syncStatus: document.getElementById("syncStatus"),
@@ -20,7 +23,28 @@ const els = {
   statPostage: document.getElementById("statPostage"),
   statComplete: document.getElementById("statComplete"),
   statCancel: document.getElementById("statCancel"),
+  themeToggle: document.getElementById("themeToggle"),
 };
+
+/* ---------------- Dark mode ---------------- */
+// The <head> script already applies a saved/system theme before first
+// paint (see index.html) — this just wires up the toggle button.
+const THEME_KEY = "aepeach-theme";
+function setThemeButtonLabel(theme) {
+  els.themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
+  els.themeToggle.setAttribute(
+    "aria-label",
+    theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+  );
+}
+setThemeButtonLabel(document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light");
+els.themeToggle.addEventListener("click", () => {
+  const next =
+    document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem(THEME_KEY, next);
+  setThemeButtonLabel(next);
+});
 
 /* ---------------- Logo fallback ---------------- */
 const logoImg = document.getElementById("logoImg");
@@ -277,7 +301,15 @@ function renderStepper(status) {
 
 function renderResults(orders) {
   if (orders.length === 0) {
-    els.results.innerHTML = `
+    const filterActive = els.statusFilter.value !== "all";
+    els.results.innerHTML = filterActive
+      ? `
+      <div class="empty-state">
+        <span class="empty-state__emoji">🍑</span>
+        <p>No orders match "${escapeHtml(els.statusFilter.value)}" right now.</p>
+        <p class="muted">Try a different status, or select "All Statuses" to see everything.</p>
+      </div>`
+      : `
       <div class="empty-state">
         <span class="empty-state__emoji">🍑</span>
         <p>No orders found under that username yet.</p>
@@ -357,21 +389,38 @@ function doSearch(rawInput) {
   const query = normalizeUsername(rawInput);
   if (!query) {
     els.searchMeta.hidden = true;
+    els.filterRow.hidden = true;
     els.dashboard.hidden = true;
     els.results.innerHTML = "";
+    LAST_MATCHES = [];
     return;
   }
 
   const matches = ALL_ORDERS.filter(
     (o) => normalizeUsername(o.username) === query
   );
+  LAST_MATCHES = matches;
 
   els.searchMeta.hidden = false;
   els.searchMeta.textContent = `Showing results for @${query}`;
+  els.filterRow.hidden = matches.length === 0;
+  els.statusFilter.value = "all";
 
   renderDashboard(matches);
-  renderResults(matches);
+  applyStatusFilter();
 }
+
+// Applies the "Filter by status" dropdown to the last search's matches.
+// The dashboard totals above always reflect ALL of the customer's
+// orders — the filter only narrows which order cards are listed below.
+function applyStatusFilter() {
+  const val = els.statusFilter.value;
+  const filtered =
+    val === "all" ? LAST_MATCHES : LAST_MATCHES.filter((o) => o.status === val);
+  renderResults(filtered);
+}
+
+els.statusFilter.addEventListener("change", applyStatusFilter);
 
 els.searchForm.addEventListener("submit", (e) => {
   e.preventDefault();
