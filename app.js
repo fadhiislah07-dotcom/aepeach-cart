@@ -178,7 +178,7 @@ function normalizeStatus(raw) {
 }
 
 const STATUS_META = {
-  Secured: { emoji: "🌱", cls: "secured" },
+  Secured: { emoji: "🛒", cls: "secured" },
   "In Transit": { emoji: "🚚", cls: "transit" },
   "Ready for Postage": { emoji: "📦", cls: "postage" },
   Complete: { emoji: "🍑", cls: "complete" },
