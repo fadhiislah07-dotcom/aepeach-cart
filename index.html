@@ -53,7 +53,7 @@
 
   <!-- Search -->
   <section class="card search-card" aria-labelledby="searchHeading">
-    <h2 id="searchHeading">Track your order</h2>
+    <h2 id="searchHeading">Track your order 🍑</h2>
     <p class="muted">Enter your Telegram username to see everything under your name.</p>
     <form id="searchForm" class="search-form" autocomplete="off">
       <div class="search-input-wrap">
@@ -69,18 +69,6 @@
       <button type="submit" class="btn btn--primary">Search</button>
     </form>
     <p id="searchMeta" class="search-meta" hidden></p>
-
-    <div class="filter-row" id="filterRow" hidden>
-      <label for="statusFilter" class="filter-row__label">Filter by status:</label>
-      <select id="statusFilter" class="filter-select">
-        <option value="all">All Statuses</option>
-        <option value="Secured">Secured</option>
-        <option value="In Transit">In Transit</option>
-        <option value="Ready for Postage">Ready for Postage</option>
-        <option value="Complete">Complete</option>
-        <option value="Cancel">Cancel</option>
-      </select>
-    </div>
   </section>
 
   <!-- Dashboard (appears after a search) -->
@@ -93,7 +81,7 @@
         <span class="stat-card__label">Total Orders</span>
       </div>
       <div class="stat-card stat-card--secured">
-        <span class="stat-card__icon" aria-hidden="true">🛒</span>
+        <span class="stat-card__icon" aria-hidden="true">🌱</span>
         <span class="stat-card__num" id="statSecured">0</span>
         <span class="stat-card__label">Secured</span>
       </div>
@@ -117,6 +105,18 @@
         <span class="stat-card__num" id="statCancel">0</span>
         <span class="stat-card__label">Cancel</span>
       </div>
+    </div>
+
+    <div class="filter-row" id="filterRow" hidden>
+      <label for="statusFilter" class="filter-row__label">Filter by status:</label>
+      <select id="statusFilter" class="filter-select">
+        <option value="all">All Statuses</option>
+        <option value="Secured">Secured</option>
+        <option value="In Transit">In Transit</option>
+        <option value="Ready for Postage">Ready for Postage</option>
+        <option value="Complete">Complete</option>
+        <option value="Cancel">Cancel</option>
+      </select>
     </div>
   </section>
 
