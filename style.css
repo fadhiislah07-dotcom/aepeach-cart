@@ -57,7 +57,7 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }
 
 body {
   margin: 0;
@@ -229,7 +229,15 @@ main {
   border-radius: var(--radius-lg);
   padding: 26px;
   box-shadow: var(--shadow-sm);
+  transition: background-color 0.25s, border-color 0.25s, box-shadow 0.2s, transform 0.2s;
 }
+
+/* ---------------- Motion ---------------- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeInUp 0.35s ease both; }
 
 /* ---------------- Search ---------------- */
 .search-card { text-align: center; }
@@ -289,6 +297,50 @@ main {
 .btn--small { padding: 8px 18px; font-size: 0.85rem; }
 .btn:disabled { opacity: 0.5; cursor: default; }
 
+/* ---------------- Recent searches ---------------- */
+.recent-searches {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.recent-searches__label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ink-muted);
+}
+.recent-searches__chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.recent-chip {
+  background: var(--bg);
+  border: 1.5px solid var(--pink-soft);
+  color: var(--pink-deep);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.recent-chip:hover { border-color: var(--pink); background: var(--pink-soft); }
+.recent-searches__clear {
+  background: none;
+  border: none;
+  color: var(--ink-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 4px;
+}
+.recent-searches__clear:hover { color: var(--pink-deep); }
+
 .search-meta {
   margin-top: 14px;
   font-weight: 700;
@@ -341,6 +393,7 @@ main {
   align-items: center;
   gap: 4px;
   box-shadow: var(--shadow-sm);
+  transition: background-color 0.25s, border-color 0.25s;
 }
 .stat-card__icon { font-size: 1.4rem; }
 .stat-card__num {
