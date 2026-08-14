@@ -68,6 +68,15 @@
       </div>
       <button type="submit" class="btn btn--primary">Search</button>
     </form>
+
+    <!-- Recent searches — filled in automatically, saved in the visitor's
+         own browser so they don't need to retype their username. -->
+    <div class="recent-searches" id="recentSearches" hidden>
+      <span class="recent-searches__label">Recent:</span>
+      <div class="recent-searches__chips" id="recentChips"></div>
+      <button type="button" class="recent-searches__clear" id="clearRecent">Clear</button>
+    </div>
+
     <p id="searchMeta" class="search-meta" hidden></p>
   </section>
 
