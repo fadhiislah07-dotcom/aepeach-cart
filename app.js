@@ -11,6 +11,9 @@ const els = {
   searchForm: document.getElementById("searchForm"),
   searchInput: document.getElementById("searchInput"),
   searchMeta: document.getElementById("searchMeta"),
+  recentSearches: document.getElementById("recentSearches"),
+  recentChips: document.getElementById("recentChips"),
+  clearRecent: document.getElementById("clearRecent"),
   filterRow: document.getElementById("filterRow"),
   statusFilter: document.getElementById("statusFilter"),
   dashboard: document.getElementById("dashboard"),
@@ -78,7 +81,56 @@ const announcementsContainer = document.getElementById("announcements");
   announcementsContainer.appendChild(box);
 });
 
-/* ---------------- CSV parsing ---------------- */
+/* ---------------- Recent searches ---------------- */
+// Stored in the visitor's own browser (localStorage) so their last
+// few searched usernames are one click away next time.
+const RECENT_KEY = "aepeach-recent-searches";
+const MAX_RECENT = 6;
+
+function getRecentSearches() {
+  try {
+    const list = JSON.parse(localStorage.getItem(RECENT_KEY));
+    return Array.isArray(list) ? list : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveRecentSearch(username) {
+  let list = getRecentSearches().filter((u) => u !== username);
+  list.unshift(username);
+  list = list.slice(0, MAX_RECENT);
+  localStorage.setItem(RECENT_KEY, JSON.stringify(list));
+  renderRecentSearches();
+}
+
+function renderRecentSearches() {
+  const list = getRecentSearches();
+  els.recentSearches.hidden = list.length === 0;
+  els.recentChips.innerHTML = list
+    .map(
+      (u) =>
+        `<button type="button" class="recent-chip" data-username="${escapeHtml(
+          u
+        )}">@${escapeHtml(u)}</button>`
+    )
+    .join("");
+}
+
+els.recentChips.addEventListener("click", (e) => {
+  const btn = e.target.closest(".recent-chip");
+  if (!btn) return;
+  const username = btn.dataset.username;
+  els.searchInput.value = username;
+  doSearch(username);
+});
+
+els.clearRecent.addEventListener("click", () => {
+  localStorage.removeItem(RECENT_KEY);
+  renderRecentSearches();
+});
+
+renderRecentSearches();
 // Handles quoted fields containing commas/newlines, per RFC4180-ish CSV
 // (this is what Google's gviz CSV export produces).
 function parseCSV(text) {
@@ -178,7 +230,7 @@ function normalizeStatus(raw) {
 }
 
 const STATUS_META = {
-  Secured: { emoji: "🛒", cls: "secured" },
+  Secured: { emoji: "🌱", cls: "secured" },
   "In Transit": { emoji: "🚚", cls: "transit" },
   "Ready for Postage": { emoji: "📦", cls: "postage" },
   Complete: { emoji: "🍑", cls: "complete" },
@@ -315,6 +367,7 @@ function renderResults(orders) {
         <p>No orders found under that username yet.</p>
         <p class="muted">Double-check the spelling, or message us if you think this is a mistake.</p>
       </div>`;
+    playFadeIn(els.results);
     return;
   }
 
@@ -355,6 +408,7 @@ function renderResults(orders) {
         </div>`;
     })
     .join("");
+  playFadeIn(els.results);
 }
 
 function renderDashboard(orders) {
@@ -377,6 +431,15 @@ function renderDashboard(orders) {
   els.statCancel.textContent = counts.Cancel;
 
   els.dashboard.hidden = false;
+  playFadeIn(els.dashboard);
+}
+
+// Re-triggers a CSS fade-in animation on an element (removing then
+// re-adding the class forces the browser to replay it).
+function playFadeIn(el) {
+  el.classList.remove("fade-in");
+  void el.offsetWidth;
+  el.classList.add("fade-in");
 }
 
 function escapeHtml(str) {
@@ -406,8 +469,15 @@ function doSearch(rawInput) {
   els.filterRow.hidden = matches.length === 0;
   els.statusFilter.value = "all";
 
+  saveRecentSearch(query);
   renderDashboard(matches);
   applyStatusFilter();
+
+  // Give the browser a moment to lay out the newly shown dashboard
+  // before smooth-scrolling to it.
+  requestAnimationFrame(() => {
+    els.dashboard.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 }
 
 // Applies the "Filter by status" dropdown to the last search's matches.
