@@ -14,6 +14,7 @@ const els = {
   recentSearches: document.getElementById("recentSearches"),
   recentChips: document.getElementById("recentChips"),
   clearRecent: document.getElementById("clearRecent"),
+  announcements: document.getElementById("announcements"),
   filterRow: document.getElementById("filterRow"),
   statusFilter: document.getElementById("statusFilter"),
   dashboard: document.getElementById("dashboard"),
@@ -131,6 +132,17 @@ els.clearRecent.addEventListener("click", () => {
 });
 
 renderRecentSearches();
+
+// Smoothly hides the logo and announcement boxes while a search is
+// active, so the results have more room. Queries the logo live since
+// it may have been swapped for the fallback emoji div (see error
+// listener below).
+function setHeroCollapsed(collapsed) {
+  const logo = document.querySelector(".hero__logo");
+  if (logo) logo.classList.toggle("is-collapsed", collapsed);
+  if (els.announcements) els.announcements.classList.toggle("is-collapsed", collapsed);
+}
+
 // Handles quoted fields containing commas/newlines, per RFC4180-ish CSV
 // (this is what Google's gviz CSV export produces).
 function parseCSV(text) {
@@ -456,6 +468,7 @@ function doSearch(rawInput) {
     els.dashboard.hidden = true;
     els.results.innerHTML = "";
     LAST_MATCHES = [];
+    setHeroCollapsed(false);
     return;
   }
 
@@ -469,6 +482,7 @@ function doSearch(rawInput) {
   els.filterRow.hidden = matches.length === 0;
   els.statusFilter.value = "all";
 
+  setHeroCollapsed(true);
   saveRecentSearch(query);
   renderDashboard(matches);
   applyStatusFilter();
