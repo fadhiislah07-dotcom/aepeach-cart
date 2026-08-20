@@ -144,7 +144,9 @@ renderRecentSearches();
 // smoothly regardless of the actual content height.
 function setHeroCollapsed(collapsed) {
   const logoWrap = document.getElementById("heroLogoWrap");
+  const titleWrap = document.getElementById("heroTitleWrap");
   if (logoWrap) logoWrap.classList.toggle("is-collapsed", collapsed);
+  if (titleWrap) titleWrap.classList.toggle("is-collapsed", collapsed);
   if (els.announcements) els.announcements.classList.toggle("is-collapsed", collapsed);
 }
 
