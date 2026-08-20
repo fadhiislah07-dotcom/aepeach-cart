@@ -36,7 +36,9 @@
 </header>
 
 <section class="hero">
-  <img src="https://i.ibb.co/PGzPNH41/pcart.png" alt="aePeach Cart logo" class="hero__logo" id="logoImg">
+  <div class="hero__logo-wrap" id="heroLogoWrap">
+    <img src="https://i.ibb.co/PGzPNH41/pcart.png" alt="aePeach Cart logo" class="hero__logo" id="logoImg">
+  </div>
   <h1 class="hero__title">ae<span>Peach</span> Cart</h1>
   <p class="hero__tagline">Order masterlist &amp; live tracker</p>
 
@@ -46,7 +48,9 @@
        to add, remove, or edit a box, edit CONFIG.announcements
        in config.js. Nothing here needs to change.
        ============================================================ -->
-  <div class="announcements" id="announcements"></div>
+  <div class="announcements" id="announcements">
+    <div class="announcements__inner" id="announcementsInner"></div>
+  </div>
 </section>
 
 <main>
