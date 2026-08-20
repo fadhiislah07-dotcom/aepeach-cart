@@ -229,6 +229,13 @@ h1, h2, h3 {
   font-size: 3rem;
   box-sizing: border-box;
 }
+.hero__title-wrap {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hero__title-wrap > * { min-height: 0; overflow: hidden; }
+.hero__title-wrap.is-collapsed { grid-template-rows: 0fr; }
 .hero__title {
   font-size: 2.4rem;
   font-weight: 800;
