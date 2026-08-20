@@ -130,6 +130,9 @@
         <option value="Complete">Complete</option>
         <option value="Cancel">Cancel</option>
       </select>
+      <button type="button" id="checkoutBtn" class="btn btn--primary btn--small" hidden>
+        🛒 Checkout
+      </button>
     </div>
   </section>
 
@@ -143,6 +146,27 @@
   <button id="refreshBtn" class="btn btn--ghost btn--small" type="button">↻ Refresh data</button>
   <p class="footer-credit">made with 🍑 by aePeach Cart</p>
 </footer>
+
+<!-- ============================================================
+     CHECKOUT MODAL
+     Opens when the customer taps "Checkout". Lists their items that
+     are Ready for Postage, lets them copy the list, then continue
+     to Telegram. Edit the Telegram link in config.js if it changes.
+     ============================================================ -->
+<div class="modal-overlay" id="checkoutModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="checkoutModalTitle">
+    <button type="button" class="modal__close" id="checkoutModalClose" aria-label="Close checkout">×</button>
+    <h2 id="checkoutModalTitle">📦 Ready for Postage</h2>
+    <p class="muted">Copy this list and send it to us on Telegram to arrange postage.</p>
+    <div class="checkout-list" id="checkoutList"></div>
+    <div class="modal__actions">
+      <button type="button" class="btn btn--ghost" id="copyCheckoutBtn">📋 Copy list</button>
+      <a class="btn btn--primary" id="telegramCheckoutBtn" href="https://t.me/aepeachcart/8442" target="_blank" rel="noopener">
+        Continue to Telegram →
+      </a>
+    </div>
+  </div>
+</div>
 
 <script src="config.js"></script>
 <script src="app.js"></script>
