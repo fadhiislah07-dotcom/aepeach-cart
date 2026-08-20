@@ -28,6 +28,11 @@ const els = {
   statComplete: document.getElementById("statComplete"),
   statCancel: document.getElementById("statCancel"),
   themeToggle: document.getElementById("themeToggle"),
+  checkoutBtn: document.getElementById("checkoutBtn"),
+  checkoutModal: document.getElementById("checkoutModal"),
+  checkoutModalClose: document.getElementById("checkoutModalClose"),
+  checkoutList: document.getElementById("checkoutList"),
+  copyCheckoutBtn: document.getElementById("copyCheckoutBtn"),
 };
 
 /* ---------------- Dark mode ---------------- */
@@ -466,6 +471,7 @@ function doSearch(rawInput) {
     els.searchMeta.hidden = true;
     els.filterRow.hidden = true;
     els.dashboard.hidden = true;
+    els.checkoutBtn.hidden = true;
     els.results.innerHTML = "";
     LAST_MATCHES = [];
     setHeroCollapsed(false);
@@ -481,6 +487,7 @@ function doSearch(rawInput) {
   els.searchMeta.textContent = `Showing results for @${query}`;
   els.filterRow.hidden = matches.length === 0;
   els.statusFilter.value = "all";
+  els.checkoutBtn.hidden = !matches.some((o) => o.status === "Ready for Postage");
 
   setHeroCollapsed(true);
   saveRecentSearch(query);
@@ -503,6 +510,95 @@ function applyStatusFilter() {
     val === "all" ? LAST_MATCHES : LAST_MATCHES.filter((o) => o.status === val);
   renderResults(filtered);
 }
+
+/* ---------------- Checkout ---------------- */
+// Shows every one of the customer's items that's Ready for Postage —
+// independent of whatever the status filter above is currently set
+// to — so they can copy the list and confirm postage on Telegram.
+let CHECKOUT_TEXT = "";
+
+function buildCheckoutText(items, username) {
+  const lines = [
+    `aePeach Cart — Ready for Postage`,
+    `@${username}`,
+    "",
+    ...items.map((o) => `${o.tag || "—"} | ${o.item || "—"} | Qty: ${o.qty || "—"}`),
+  ];
+  return lines.join("\n");
+}
+
+function openCheckout() {
+  const readyItems = LAST_MATCHES.filter((o) => o.status === "Ready for Postage");
+  const username = els.searchInput.value.trim().replace(/^@/, "");
+
+  if (readyItems.length === 0) {
+    els.checkoutList.innerHTML = `
+      <div class="empty-state">
+        <span class="empty-state__emoji">📦</span>
+        <p>Nothing is ready for postage right now.</p>
+      </div>`;
+    CHECKOUT_TEXT = "";
+  } else {
+    els.checkoutList.innerHTML = readyItems
+      .map(
+        (o) => `
+        <div class="checkout-row">
+          <span class="checkout-row__tag">${escapeHtml(o.tag || "—")}</span>
+          <span class="checkout-row__item">${escapeHtml(o.item || "—")}</span>
+          <span class="checkout-row__qty">Qty: ${escapeHtml(o.qty || "—")}</span>
+        </div>`
+      )
+      .join("");
+    CHECKOUT_TEXT = buildCheckoutText(readyItems, username);
+  }
+
+  els.checkoutModal.hidden = false;
+  requestAnimationFrame(() => els.checkoutModal.classList.add("is-open"));
+  document.body.style.overflow = "hidden";
+}
+
+function closeCheckout() {
+  els.checkoutModal.classList.remove("is-open");
+  document.body.style.overflow = "";
+  // Wait for the fade-out transition before actually hiding it.
+  setTimeout(() => {
+    if (!els.checkoutModal.classList.contains("is-open")) {
+      els.checkoutModal.hidden = true;
+    }
+  }, 250);
+}
+
+els.checkoutBtn.addEventListener("click", openCheckout);
+els.checkoutModalClose.addEventListener("click", closeCheckout);
+els.checkoutModal.addEventListener("click", (e) => {
+  if (e.target === els.checkoutModal) closeCheckout();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !els.checkoutModal.hidden) closeCheckout();
+});
+
+els.copyCheckoutBtn.addEventListener("click", async () => {
+  if (!CHECKOUT_TEXT) return;
+  const original = els.copyCheckoutBtn.textContent;
+  try {
+    await navigator.clipboard.writeText(CHECKOUT_TEXT);
+  } catch {
+    // Clipboard API unavailable (e.g. very old browser) — fall back
+    // to a temporary textarea + execCommand.
+    const ta = document.createElement("textarea");
+    ta.value = CHECKOUT_TEXT;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+  }
+  els.copyCheckoutBtn.textContent = "✅ Copied!";
+  setTimeout(() => {
+    els.copyCheckoutBtn.textContent = original;
+  }, 1800);
+});
 
 els.statusFilter.addEventListener("change", applyStatusFilter);
 
