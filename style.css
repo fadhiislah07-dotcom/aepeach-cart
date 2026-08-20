@@ -328,12 +328,12 @@ main {
 /* ---------------- Recent searches ---------------- */
 .recent-searches {
   margin-top: 14px;
-  display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
   justify-content: center;
 }
+.recent-searches:not([hidden]) { display: flex; }
 .recent-searches__label {
   font-size: 0.78rem;
   font-weight: 700;
@@ -377,13 +377,13 @@ main {
 
 /* ---------------- Status filter ---------------- */
 .filter-row {
-  display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   flex-wrap: wrap;
   margin-top: 16px;
 }
+.filter-row:not([hidden]) { display: flex; }
 .filter-row__label {
   font-weight: 700;
   font-size: 0.85rem;
@@ -600,13 +600,13 @@ main {
   inset: 0;
   z-index: 100;
   background: rgba(28, 20, 32, 0.45);
-  display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
   opacity: 0;
   transition: opacity 0.25s ease;
 }
+.modal-overlay:not([hidden]) { display: flex; }
 .modal-overlay.is-open { opacity: 1; }
 .modal {
   background: var(--bg-card);
