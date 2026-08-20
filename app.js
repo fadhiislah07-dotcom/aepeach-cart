@@ -65,7 +65,7 @@ if (logoImg) {
 // Reads CONFIG.announcements (from config.js) and builds one box per
 // entry. Add, remove, or edit entries in config.js — not here.
 // Colors cycle through 4 flat tones defined in style.css.
-const announcementsContainer = document.getElementById("announcements");
+const announcementsContainer = document.getElementById("announcementsInner");
 (CONFIG.announcements || []).forEach((item, i) => {
   const box = document.createElement("div");
   box.className = `announcement-box announcement-box--c${(i % 4) + 1}`;
@@ -134,12 +134,12 @@ els.clearRecent.addEventListener("click", () => {
 renderRecentSearches();
 
 // Smoothly hides the logo and announcement boxes while a search is
-// active, so the results have more room. Queries the logo live since
-// it may have been swapped for the fallback emoji div (see error
-// listener below).
+// active, so the results have more room. Toggling the wrapper (not
+// the content itself) lets the grid-row collapse animation run
+// smoothly regardless of the actual content height.
 function setHeroCollapsed(collapsed) {
-  const logo = document.querySelector(".hero__logo");
-  if (logo) logo.classList.toggle("is-collapsed", collapsed);
+  const logoWrap = document.getElementById("heroLogoWrap");
+  if (logoWrap) logoWrap.classList.toggle("is-collapsed", collapsed);
   if (els.announcements) els.announcements.classList.toggle("is-collapsed", collapsed);
 }
 
