@@ -520,13 +520,9 @@ function applyStatusFilter() {
 let CHECKOUT_TEXT = "";
 
 function buildCheckoutText(items, username) {
-  const lines = [
-    `aePeach Cart — Ready for Postage`,
-    `@${username}`,
-    "",
-    ...items.map((o) => `${o.tag || "—"} | ${o.item || "—"} | Qty: ${o.qty || "—"}`),
-  ];
-  return lines.join("\n");
+  return items
+    .map((o) => `${o.tag || "—"} | ${o.item || "—"} | Qty: ${o.qty || "—"}`)
+    .join("\n");
 }
 
 function openCheckout() {
