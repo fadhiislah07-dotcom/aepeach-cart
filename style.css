@@ -174,6 +174,34 @@ h1, h2, h3 {
   color: var(--pink-deeper);
   flex: 1;
 }
+.site-header__link {
+  flex-shrink: 0;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--pink-deep);
+  text-decoration: none;
+  background: var(--bg);
+  border: 2px solid var(--pink-soft);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+.site-header__link:hover { border-color: var(--pink); }
+.site-header__back {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pink-deep);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1.1rem;
+  background: var(--bg);
+  border: 2px solid var(--pink-soft);
+}
+.site-header__back:hover { border-color: var(--pink); }
 .theme-toggle {
   flex-shrink: 0;
   width: 36px;
@@ -697,6 +725,76 @@ main {
 }
 .sync-status { color: var(--ink-muted); font-size: 0.82rem; margin: 0; }
 .footer-credit { color: var(--ink-muted); font-size: 0.78rem; margin: 6px 0 0; }
+.footer-link {
+  color: var(--pink-deep);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: underline;
+}
+.footer-link:hover { color: var(--pink-deeper); }
+
+/* ---------------- Terms & Payment Guidelines page ---------------- */
+.terms-main {
+  max-width: 720px;
+  margin: 24px auto 60px;
+  padding: 0 16px;
+}
+.terms-card { line-height: 1.65; }
+.terms-title {
+  font-size: 1.3rem;
+  text-align: center;
+  margin-bottom: 22px;
+}
+.terms-card h2 {
+  font-size: 1.4rem;
+  margin-top: 30px;
+}
+.terms-card h3 {
+  font-size: 1.05rem;
+  margin-top: 22px;
+  color: var(--peach-deep);
+}
+.terms-subheading {
+  text-align: center;
+  font-weight: 700;
+  color: var(--pink-deep);
+  margin-top: 4px;
+}
+.terms-card p { color: var(--ink); margin: 10px 0; }
+.terms-card ul {
+  margin: 8px 0;
+  padding-left: 22px;
+}
+.terms-card ul ul {
+  margin: 4px 0;
+  padding-left: 20px;
+}
+.terms-card li { margin: 6px 0; color: var(--ink); }
+.terms-note { font-size: 0.88rem; color: var(--ink-muted); }
+.terms-divider {
+  border: none;
+  border-top: 2px dashed var(--pink-soft);
+  margin: 28px 0;
+}
+.terms-admins { list-style: none; padding-left: 0; }
+.terms-admins li {
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  margin: 6px 0;
+}
+.terms-admins a {
+  color: var(--pink-deep);
+  font-weight: 800;
+  text-decoration: none;
+}
+.terms-admins a:hover { text-decoration: underline; }
+.terms-thanks {
+  text-align: center;
+  margin-top: 28px;
+  font-weight: 600;
+  color: var(--pink-deep);
+}
 
 /* ---------------- Responsive ---------------- */
 @media (max-width: 520px) {
