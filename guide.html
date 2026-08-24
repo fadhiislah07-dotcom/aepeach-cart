@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide — aePeach Cart</title>
+<meta name="description" content="A quick guide to tracking your order on aePeach Cart.">
+<link rel="icon" href="https://i.ibb.co/PGzPNH41/pcart.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>
+  // Applies saved theme before first paint, avoiding a light-mode flash.
+  (function () {
+    var saved = localStorage.getItem("aepeach-theme");
+    if (saved === "dark" || saved === "light") {
+      document.documentElement.setAttribute("data-theme", saved);
+    } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  })();
+</script>
+</head>
+<body>
+
+<div class="bg-sparkles" aria-hidden="true"></div>
+
+<!-- Sticky header box -->
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href="index.html" class="site-header__back" aria-label="Back to tracker">←</a>
+    <img src="https://i.ibb.co/PGzPNH41/pcart.png" alt="" class="site-header__logo" aria-hidden="true">
+    <span class="site-header__name">Guide</span>
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode">🌙</button>
+  </div>
+</header>
+
+<main class="terms-main">
+  <section class="card terms-card">
+
+    <h1 class="terms-title">🍑 How to Track Your Order</h1>
+    <p class="terms-subheading">a quick guide, step by step</p>
+
+    <ol class="guide-steps">
+      <li class="guide-step">
+        <span class="guide-step__num">1</span>
+        <div class="guide-step__body">
+          <h3>Search your Telegram username</h3>
+          <p>On the home page, type your Telegram username into the search bar (with or without the @) and tap <strong>Search</strong>.</p>
+        </div>
+      </li>
+
+      <li class="guide-step">
+        <span class="guide-step__num">2</span>
+        <div class="guide-step__body">
+          <h3>Check your order summary</h3>
+          <p>A dashboard appears showing your total orders, and how many are Secured, In Transit, Ready for Postage, Complete, or Cancelled.</p>
+        </div>
+      </li>
+
+      <li class="guide-step">
+        <span class="guide-step__num">3</span>
+        <div class="guide-step__body">
+          <h3>Browse your items</h3>
+          <p>Below the dashboard, every item you've claimed is listed by batch tag — showing the item name, quantity, and a little status tracker (🌱 Secured → 🚚 In Transit → 📦 Ready for Postage → 🍑 Complete).</p>
+        </div>
+      </li>
+
+      <li class="guide-step">
+        <span class="guide-step__num">4</span>
+        <div class="guide-step__body">
+          <h3>Filter by status</h3>
+          <p>Use the <strong>"Filter by status"</strong> dropdown under your dashboard to narrow the list down to just one status at a time — handy if you only want to see what's still In Transit, for example.</p>
+        </div>
+      </li>
+
+      <li class="guide-step">
+        <span class="guide-step__num">5</span>
+        <div class="guide-step__body">
+          <h3>Checkout when your items are ready</h3>
+          <p>If any of your items are Ready for Postage, a <strong>Checkout</strong> button appears next to the filter. Tap it to see the full list, tap <strong>📋 Copy list</strong> to copy it, then tap <strong>Checkout →</strong> to send it to us on Telegram and arrange postage.</p>
+        </div>
+      </li>
+
+      <li class="guide-step">
+        <span class="guide-step__num">6</span>
+        <div class="guide-step__body">
+          <h3>Quick re-search next time</h3>
+          <p>Your last few searched usernames are saved as tappable chips under the search bar, so you don't have to type your username again.</p>
+        </div>
+      </li>
+
+      <li class="guide-step">
+        <span class="guide-step__num">7</span>
+        <div class="guide-step__body">
+          <h3>Switch to dark mode</h3>
+          <p>Tap the 🌙 / ☀️ icon in the top bar anytime to switch between light and dark mode. It'll remember your choice next time you visit.</p>
+        </div>
+      </li>
+
+      <li class="guide-step">
+        <span class="guide-step__num">8</span>
+        <div class="guide-step__body">
+          <h3>Read our T&amp;C</h3>
+          <p>Tap <strong>T&amp;C</strong> in the top bar or footer anytime to review our terms and payment guidelines before claiming.</p>
+        </div>
+      </li>
+    </ol>
+
+    <p class="terms-thanks">Still stuck? Message any of our admins listed on the T&amp;C page ♡</p>
+
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p class="footer-credit">made with 🍑 by aePeach Cart</p>
+</footer>
+
+<script>
+  // Wires up the dark mode toggle only — this page has no search/data logic.
+  const themeToggle = document.getElementById("themeToggle");
+  const THEME_KEY = "aepeach-theme";
+  function setThemeButtonLabel(theme) {
+    themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
+    themeToggle.setAttribute(
+      "aria-label",
+      theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+    );
+  }
+  setThemeButtonLabel(document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light");
+  themeToggle.addEventListener("click", () => {
+    const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem(THEME_KEY, next);
+    setThemeButtonLabel(next);
+  });
+</script>
+</body>
+</html>
