@@ -796,6 +796,43 @@ main {
   color: var(--pink-deep);
 }
 
+/* ---------------- How to Use guide steps ---------------- */
+.guide-steps {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.guide-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--bg);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+.guide-step__num {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--pink-deep);
+  color: #fff;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.guide-step__body h3 {
+  margin: 2px 0 4px;
+  font-size: 1rem;
+  color: var(--pink-deeper);
+}
+.guide-step__body p { margin: 0; color: var(--ink); }
+
 /* ---------------- Responsive ---------------- */
 @media (max-width: 520px) {
   .stat-grid { grid-template-columns: repeat(2, 1fr); }
@@ -803,6 +840,9 @@ main {
   .card { padding: 20px; }
   .search-form { flex-direction: column; }
   .btn--primary { width: 100%; }
+  .site-header__name { display: none; }
+  .site-header__link { padding: 6px 10px; font-size: 0.74rem; }
+  .theme-toggle { margin-left: auto; }
 }
 
 /* Reduced motion */
