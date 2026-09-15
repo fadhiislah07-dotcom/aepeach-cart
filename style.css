@@ -600,6 +600,14 @@ main {
   flex-wrap: wrap;
   margin-bottom: 8px;
 }
+.order-row__line1,
+.order-row__line2 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.order-row__line1 { flex: 1; min-width: 140px; }
 .order-row__tag {
   font-weight: 800;
   color: var(--ink);
@@ -936,29 +944,35 @@ main {
   .order-group__batch { font-size: 0.62rem; }
   .order-row + .order-row { margin-top: 10px; padding-top: 10px; }
 
-  /* Keep the whole row on one line, like desktop — scroll sideways
-     instead of wrapping onto a second line. */
+  /* Row 1 (tag + item name) and row 2 (qty, EMS, badge) each stay on
+     their own single line — scrolling sideways only if they overflow. */
   .order-row__main {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .order-row__line1,
+  .order-row__line2 {
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     gap: 6px;
-    margin-bottom: 6px;
     padding-bottom: 2px;
   }
   .order-row__tag,
   .order-row__qty,
-  .order-row__main .badge {
+  .order-row__line2 .badge {
     flex-shrink: 0;
   }
   .order-row__item {
-    font-size: 0.8rem;
+    font-size: 0.86rem;
     flex-shrink: 0;
     white-space: nowrap;
     min-width: 0;
   }
-  .order-row__tag, .order-row__qty { font-size: 0.6rem; padding: 2px 6px; }
-  .badge { font-size: 0.58rem; padding: 3px 8px; }
+  .order-row__tag, .order-row__qty { font-size: 0.66rem; padding: 3px 8px; }
+  .badge { font-size: 0.62rem; padding: 3px 9px; }
   .stepper__step { min-width: 46px; gap: 2px; }
   .stepper__dot { width: 22px; height: 22px; font-size: 0.68rem; border-width: 1.5px; }
   .stepper__label { font-size: 0.46rem; }
