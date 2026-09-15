@@ -503,47 +503,48 @@ main {
 /* ---------------- Dashboard ---------------- */
 .dashboard__title { text-align: center; }
 .stat-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
   margin-top: 16px;
-}
-.stat-card {
   background: var(--bg-card);
   border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  padding: 15px 8px;
+  border-radius: var(--radius-lg);
+  padding: 22px 14px;
+  box-shadow: var(--shadow-sm);
+  transition: background-color 0.25s, border-color 0.25s;
+}
+.stat-card {
+  background: transparent;
+  border: none;
+  padding: 0;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  box-shadow: var(--shadow-sm);
-  transition: background-color 0.25s, border-color 0.25s, transform 0.2s ease, box-shadow 0.2s ease;
+  gap: 4px;
+  flex: 1 1 0;
+  min-width: 0;
+  box-shadow: none;
+  transition: none;
 }
-.stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
-.stat-card__icon {
-  font-size: 1.05rem;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: var(--bg);
-}
+.stat-card:hover { transform: none; box-shadow: none; }
+.stat-card__icon { display: none; }
 .stat-card__num {
   font-family: "Baloo 2", sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.55rem;
   font-weight: 800;
   color: var(--ink);
+  line-height: 1;
 }
 .stat-card__label {
-  font-size: 0.72rem;
+  font-size: 0.64rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.3px;
   color: var(--ink-muted);
+  line-height: 1.25;
 }
 .stat-card--total .stat-card__num { color: var(--pink-deeper); }
 .stat-card--secured .stat-card__num { color: var(--gold-deep); }
@@ -919,7 +920,9 @@ main {
 
 /* ---------------- Responsive ---------------- */
 @media (max-width: 520px) {
-  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-grid { gap: 3px; padding: 16px 6px; }
+  .stat-card__num { font-size: 1.05rem; }
+  .stat-card__label { font-size: 0.52rem; letter-spacing: 0.2px; }
   .card { padding: 20px; }
   .search-form { flex-direction: column; }
   .btn--primary { width: 100%; }
