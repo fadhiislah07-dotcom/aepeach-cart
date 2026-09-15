@@ -935,8 +935,28 @@ main {
   .order-group__tag { font-size: 0.82rem; }
   .order-group__batch { font-size: 0.62rem; }
   .order-row + .order-row { margin-top: 10px; padding-top: 10px; }
-  .order-row__main { gap: 4px; margin-bottom: 6px; }
-  .order-row__item { font-size: 0.8rem; min-width: 76px; }
+
+  /* Keep the whole row on one line, like desktop — scroll sideways
+     instead of wrapping onto a second line. */
+  .order-row__main {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 6px;
+    margin-bottom: 6px;
+    padding-bottom: 2px;
+  }
+  .order-row__tag,
+  .order-row__qty,
+  .order-row__main .badge {
+    flex-shrink: 0;
+  }
+  .order-row__item {
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+    min-width: 0;
+  }
   .order-row__tag, .order-row__qty { font-size: 0.6rem; padding: 2px 6px; }
   .badge { font-size: 0.58rem; padding: 3px 8px; }
   .stepper__step { min-width: 46px; gap: 2px; }
