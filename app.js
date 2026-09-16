@@ -73,7 +73,9 @@ if (logoImg) {
 const announcementsContainer = document.getElementById("announcementsInner");
 (CONFIG.announcements || []).forEach((item, i) => {
   const box = document.createElement("div");
-  box.className = `announcement-box announcement-box--c${(i % 4) + 1}`;
+  box.className = item.urgent
+    ? "announcement-box announcement-box--urgent"
+    : `announcement-box announcement-box--c${(i % 4) + 1}`;
 
   const emoji = document.createElement("span");
   emoji.className = "announcement-box__emoji";
@@ -314,7 +316,13 @@ async function fetchTab(sheetId, tabName) {
 
 async function loadAllOrders() {
   els.syncStatus.textContent = "Connecting to masterlist…";
+  els.syncStatus.classList.remove("sync-status--error");
+  els.syncStatus.classList.add("is-loading");
   els.refreshBtn.disabled = true;
+  els.searchInput.disabled = true;
+  const originalPlaceholder = els.searchInput.placeholder;
+  els.searchInput.placeholder = "Loading order data…";
+  els.searchForm.querySelector("button[type=submit]").disabled = true;
   try {
     const results = await Promise.all(
       CONFIG.tabs.map((tab) =>
@@ -332,10 +340,15 @@ async function loadAllOrders() {
     )} · ${ALL_ORDERS.length} order lines loaded`;
   } catch (err) {
     console.error(err);
+    els.syncStatus.classList.add("sync-status--error");
     els.syncStatus.textContent =
       "⚠️ Couldn't load the masterlist right now. Please refresh, or check back shortly.";
   } finally {
+    els.syncStatus.classList.remove("is-loading");
     els.refreshBtn.disabled = false;
+    els.searchInput.disabled = false;
+    els.searchInput.placeholder = originalPlaceholder;
+    els.searchForm.querySelector("button[type=submit]").disabled = false;
   }
 }
 
@@ -471,7 +484,8 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
-function doSearch(rawInput) {
+function doSearch(rawInput, opts = {}) {
+  const { save = true, scroll = true } = opts;
   const query = normalizeUsername(rawInput);
   if (!query) {
     els.searchMeta.hidden = true;
@@ -496,16 +510,37 @@ function doSearch(rawInput) {
   els.checkoutBtn.hidden = !matches.some((o) => o.status === "Ready for Postage");
 
   setHeroCollapsed(true);
-  saveRecentSearch(query);
+  if (save) saveRecentSearch(query);
   renderDashboard(matches);
   applyStatusFilter();
 
-  // Give the browser a moment to lay out the newly shown dashboard
-  // before smooth-scrolling to it.
-  requestAnimationFrame(() => {
-    els.dashboard.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
+  if (scroll) {
+    // Give the browser a moment to lay out the newly shown dashboard
+    // before smooth-scrolling to it.
+    requestAnimationFrame(() => {
+      els.dashboard.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
 }
+
+// Live search as the customer types (debounced), in addition to the
+// explicit Search button/Enter. Doesn't save to "Recent" or scroll the
+// page, since the customer hasn't deliberately submitted yet — only a
+// full Enter/click/chip-tap does that.
+let searchDebounceTimer = null;
+const SEARCH_DEBOUNCE_MS = 400;
+els.searchInput.addEventListener("input", () => {
+  clearTimeout(searchDebounceTimer);
+  const value = els.searchInput.value;
+  if (!normalizeUsername(value)) {
+    doSearch("");
+    return;
+  }
+  if (normalizeUsername(value).length < 2) return;
+  searchDebounceTimer = setTimeout(() => {
+    doSearch(value, { save: false, scroll: false });
+  }, SEARCH_DEBOUNCE_MS);
+});
 
 // Applies the "Filter by status" dropdown to the last search's matches.
 // The dashboard totals above always reflect ALL of the customer's
