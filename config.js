@@ -34,10 +34,6 @@ const CONFIG = {
       emoji: "💌",
       text: "Kindly settle payment within 24 hours of invoicing.",
     },
-    {
-      emoji: "📢",
-      text: "Type your third announcement here.",
-    },
     // Example urgent box — uncomment and edit to use:
     // {
     //   emoji: "🚨",
