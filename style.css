@@ -89,22 +89,33 @@ body {
   transition: background-color 0.25s, color 0.25s;
 }
 
-/* Ambient sparkle backdrop — layered at different sizes/opacities so it
-   reads as scattered petals rather than a uniform repeating grid. */
+/* Ambient sparkle backdrop — a scattered pink leaf pattern layered
+   under the existing sparkle dots, so it reads as little leaves
+   drifting among the glimmer rather than a uniform repeating grid. */
 .bg-sparkles {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
   background-image:
+    url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMjAiIGhlaWdodD0iMjIwIiB2aWV3Qm94PSIwIDAgMjIwIDIyMCI+CiAgPGcgZmlsbD0iI2U4NjI4YSIgZmlsbC1vcGFjaXR5PSIwLjE2IiBzdHJva2U9IiNjOTRiNzQiIHN0cm9rZS1vcGFjaXR5PSIwLjIyIiBzdHJva2Utd2lkdGg9IjAuNiI+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMCwzMCkgcm90YXRlKDIwKSBzY2FsZSgxLjEpIj4KICAgICAgPHBhdGggZD0iTTkgMCBDMTYgNSAxNiAxNiA5IDIyIEMyIDE2IDIgNSA5IDAgWiIvPgogICAgICA8bGluZSB4MT0iOSIgeTE9IjIiIHgyPSI5IiB5Mj0iMjAiIHN0cm9rZS13aWR0aD0iMC41Ii8+CiAgICA8L2c+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNTAsMTUpIHJvdGF0ZSgtMzUpIHNjYWxlKDAuOCkiPgogICAgICA8cGF0aCBkPSJNOSAwIEMxNiA1IDE2IDE2IDkgMjIgQzIgMTYgMiA1IDkgMCBaIi8+CiAgICAgIDxsaW5lIHgxPSI5IiB5MT0iMiIgeDI9IjkiIHkyPSIyMCIgc3Ryb2tlLXdpZHRoPSIwLjUiLz4KICAgIDwvZz4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDkwLDcwKSByb3RhdGUoNzApIHNjYWxlKDEuMykiPgogICAgICA8cGF0aCBkPSJNOSAwIEMxNiA1IDE2IDE2IDkgMjIgQzIgMTYgMiA1IDkgMCBaIi8+CiAgICAgIDxsaW5lIHgxPSI5IiB5MT0iMiIgeDI9IjkiIHkyPSIyMCIgc3Ryb2tlLXdpZHRoPSIwLjUiLz4KICAgIDwvZz4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE4MCwxMjApIHJvdGF0ZSgtMTApIHNjYWxlKDAuOSkiPgogICAgICA8cGF0aCBkPSJNOSAwIEMxNiA1IDE2IDE2IDkgMjIgQzIgMTYgMiA1IDkgMCBaIi8+CiAgICAgIDxsaW5lIHgxPSI5IiB5MT0iMiIgeDI9IjkiIHkyPSIyMCIgc3Ryb2tlLXdpZHRoPSIwLjUiLz4KICAgIDwvZz4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwLDE0MCkgcm90YXRlKC02MCkgc2NhbGUoMC43KSI+CiAgICAgIDxwYXRoIGQ9Ik05IDAgQzE2IDUgMTYgMTYgOSAyMiBDMiAxNiAyIDUgOSAwIFoiLz4KICAgICAgPGxpbmUgeDE9IjkiIHkxPSIyIiB4Mj0iOSIgeTI9IjIwIiBzdHJva2Utd2lkdGg9IjAuNSIvPgogICAgPC9nPgogICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTEwLDE4MCkgcm90YXRlKDQ1KSBzY2FsZSgxKSI+CiAgICAgIDxwYXRoIGQ9Ik05IDAgQzE2IDUgMTYgMTYgOSAyMiBDMiAxNiAyIDUgOSAwIFoiLz4KICAgICAgPGxpbmUgeDE9IjkiIHkxPSIyIiB4Mj0iOSIgeTI9IjIwIiBzdHJva2Utd2lkdGg9IjAuNSIvPgogICAgPC9nPgogIDwvZz4KPC9zdmc+Cg=="),
     radial-gradient(circle, rgba(232, 98, 138, 0.28) 1.5px, transparent 1.5px),
     radial-gradient(circle, rgba(243, 197, 122, 0.3) 1.8px, transparent 1.8px),
     radial-gradient(circle, rgba(246, 168, 191, 0.22) 1px, transparent 1px);
-  background-size: 140px 140px, 210px 210px, 90px 90px;
-  background-position: 0 0, 60px 90px, 35px 20px;
+  background-size: 220px 220px, 140px 140px, 210px 210px, 90px 90px;
+  background-position: 0 0, 0 0, 60px 90px, 35px 20px;
+  animation: bgSparkleTwinkle 7s ease-in-out infinite alternate;
+}
+@keyframes bgSparkleTwinkle {
+  from { opacity: 0.88; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bg-sparkles { animation: none; }
 }
 :root[data-theme="dark"] .bg-sparkles {
   background-image:
+    url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMjAiIGhlaWdodD0iMjIwIiB2aWV3Qm94PSIwIDAgMjIwIDIyMCI+CiAgPGcgZmlsbD0iI2YwOTFhYyIgZmlsbC1vcGFjaXR5PSIwLjE0IiBzdHJva2U9IiNmZmI4Y2YiIHN0cm9rZS1vcGFjaXR5PSIwLjE4IiBzdHJva2Utd2lkdGg9IjAuNiI+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMCwzMCkgcm90YXRlKDIwKSBzY2FsZSgxLjEpIj4KICAgICAgPHBhdGggZD0iTTkgMCBDMTYgNSAxNiAxNiA5IDIyIEMyIDE2IDIgNSA5IDAgWiIvPgogICAgICA8bGluZSB4MT0iOSIgeTE9IjIiIHgyPSI5IiB5Mj0iMjAiIHN0cm9rZS13aWR0aD0iMC41Ii8+CiAgICA8L2c+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNTAsMTUpIHJvdGF0ZSgtMzUpIHNjYWxlKDAuOCkiPgogICAgICA8cGF0aCBkPSJNOSAwIEMxNiA1IDE2IDE2IDkgMjIgQzIgMTYgMiA1IDkgMCBaIi8+CiAgICAgIDxsaW5lIHgxPSI5IiB5MT0iMiIgeDI9IjkiIHkyPSIyMCIgc3Ryb2tlLXdpZHRoPSIwLjUiLz4KICAgIDwvZz4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDkwLDcwKSByb3RhdGUoNzApIHNjYWxlKDEuMykiPgogICAgICA8cGF0aCBkPSJNOSAwIEMxNiA1IDE2IDE2IDkgMjIgQzIgMTYgMiA1IDkgMCBaIi8+CiAgICAgIDxsaW5lIHgxPSI5IiB5MT0iMiIgeDI9IjkiIHkyPSIyMCIgc3Ryb2tlLXdpZHRoPSIwLjUiLz4KICAgIDwvZz4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE4MCwxMjApIHJvdGF0ZSgtMTApIHNjYWxlKDAuOSkiPgogICAgICA8cGF0aCBkPSJNOSAwIEMxNiA1IDE2IDE2IDkgMjIgQzIgMTYgMiA1IDkgMCBaIi8+CiAgICAgIDxsaW5lIHgxPSI5IiB5MT0iMiIgeDI9IjkiIHkyPSIyMCIgc3Ryb2tlLXdpZHRoPSIwLjUiLz4KICAgIDwvZz4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwLDE0MCkgcm90YXRlKC02MCkgc2NhbGUoMC43KSI+CiAgICAgIDxwYXRoIGQ9Ik05IDAgQzE2IDUgMTYgMTYgOSAyMiBDMiAxNiAyIDUgOSAwIFoiLz4KICAgICAgPGxpbmUgeDE9IjkiIHkxPSIyIiB4Mj0iOSIgeTI9IjIwIiBzdHJva2Utd2lkdGg9IjAuNSIvPgogICAgPC9nPgogICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTEwLDE4MCkgcm90YXRlKDQ1KSBzY2FsZSgxKSI+CiAgICAgIDxwYXRoIGQ9Ik05IDAgQzE2IDUgMTYgMTYgOSAyMiBDMiAxNiAyIDUgOSAwIFoiLz4KICAgICAgPGxpbmUgeDE9IjkiIHkxPSIyIiB4Mj0iOSIgeTI9IjIwIiBzdHJva2Utd2lkdGg9IjAuNSIvPgogICAgPC9nPgogIDwvZz4KPC9zdmc+Cg=="),
     radial-gradient(circle, rgba(240, 145, 172, 0.2) 1.5px, transparent 1.5px),
     radial-gradient(circle, rgba(243, 197, 122, 0.16) 1.8px, transparent 1.8px),
     radial-gradient(circle, rgba(240, 145, 172, 0.12) 1px, transparent 1px);
