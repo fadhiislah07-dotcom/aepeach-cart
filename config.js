@@ -19,8 +19,11 @@ const CONFIG = {
   // ANNOUNCEMENT BOXES — edit anytime, no coding needed.
   // Shown under the "aePeach Cart" title. Add or remove boxes by
   // adding/removing {emoji, text} entries below — any number works.
-  //   emoji → one emoji shown on the left of the box
-  //   text  → the message shown next to it
+  //   emoji  → one emoji shown on the left of the box
+  //   text   → the message shown next to it
+  //   urgent → optional. Set to true to make a box stand out as a
+  //            pinned red "URGENT" alert (e.g. payment deadlines,
+  //            sheet downtime) instead of the normal color cycle.
   // ==========================================================
   announcements: [
     {
@@ -29,8 +32,18 @@ const CONFIG = {
     },
     {
       emoji: "💌",
-      text: "Kindly settle down your payment within 24 hours of invoicing. Please settle down your EMS before checkout.",
+      text: "Kindly settle payment within 24 hours of invoicing.",
     },
+    {
+      emoji: "📢",
+      text: "Type your third announcement here.",
+    },
+    // Example urgent box — uncomment and edit to use:
+    // {
+    //   emoji: "🚨",
+    //   text: "Payment deadline extended to Friday 11:59pm — EMS will not be booked after that.",
+    //   urgent: true,
+    // },
   ],
 
   // How the sheet is fetched. Leave this as "gviz" unless told otherwise.
