@@ -254,7 +254,7 @@ const STATUS_META = {
   Secured: { emoji: "🛒", cls: "secured" },
   "In Transit": { emoji: "🚚", cls: "transit" },
   "Ready for Postage": { emoji: "📦", cls: "postage" },
-  Complete: { emoji: "🍑", cls: "complete" },
+  Complete: { emoji: "✔️", cls: "complete" },
   Cancel: { emoji: "❌", cls: "cancel" },
   Other: { emoji: "✨", cls: "other" },
   Unknown: { emoji: "❔", cls: "other" },
