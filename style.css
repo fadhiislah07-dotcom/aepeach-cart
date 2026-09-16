@@ -15,6 +15,8 @@
   --peach-deep: #e39a55;
   --gold: #f3c57a;
   --gold-deep: #b9862c;
+  --blue: #8ec5e8;
+  --blue-deep: #2f6f9e;
   --lilac: #dba6cf;
   --lilac-deep: #914f83;
   --leaf: #8fbf7b;
@@ -33,6 +35,7 @@
      so backgrounds don't collide with text when dark mode flips the
      text colors from dark-on-light to light-on-dark. */
   --tint-gold: #fdf1dc;
+  --tint-blue: #e3f1fa;
   --tint-peach: #ffefdd;
   --tint-lilac: #f7e9f3;
   --tint-leaf: #eaf5e4;
@@ -54,6 +57,8 @@
   --peach-deep: #f2a862;
   --gold: #f3c57a;
   --gold-deep: #f7d18f;
+  --blue: #8ec5e8;
+  --blue-deep: #8fc7ea;
   --lilac: #dba6cf;
   --lilac-deep: #eabce0;
   --leaf: #8fbf7b;
@@ -66,6 +71,7 @@
   --shadow: 0 10px 30px -12px rgba(0,0,0,0.55);
   --shadow-sm: 0 4px 14px -6px rgba(0,0,0,0.45);
   --tint-gold: #3a2f1a;
+  --tint-blue: #17262f;
   --tint-peach: #3a2a1a;
   --tint-lilac: #34233a;
   --tint-leaf: #1f3020;
@@ -591,7 +597,7 @@ main {
   line-height: 1.25;
 }
 .stat-card--total .stat-card__num { color: var(--pink-deeper); }
-.stat-card--secured .stat-card__num { color: var(--gold-deep); }
+.stat-card--secured .stat-card__num { color: var(--blue-deep); }
 .stat-card--transit .stat-card__num { color: var(--peach-deep); }
 .stat-card--postage .stat-card__num { color: var(--lilac-deep); }
 .stat-card--complete .stat-card__num { color: var(--leaf-deep); }
@@ -683,7 +689,7 @@ main {
   border-radius: 999px;
   white-space: nowrap;
 }
-.badge--secured { background: var(--tint-gold); color: var(--gold-deep); }
+.badge--secured { background: var(--tint-blue); color: var(--blue-deep); }
 .badge--transit { background: var(--tint-peach); color: var(--peach-deep); }
 .badge--postage { background: var(--tint-lilac); color: var(--lilac-deep); }
 .badge--complete { background: var(--tint-leaf); color: var(--leaf-deep); }
