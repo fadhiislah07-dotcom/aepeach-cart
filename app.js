@@ -484,8 +484,7 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
-function doSearch(rawInput, opts = {}) {
-  const { save = true, scroll = true } = opts;
+function doSearch(rawInput) {
   const query = normalizeUsername(rawInput);
   if (!query) {
     els.searchMeta.hidden = true;
@@ -510,37 +509,16 @@ function doSearch(rawInput, opts = {}) {
   els.checkoutBtn.hidden = !matches.some((o) => o.status === "Ready for Postage");
 
   setHeroCollapsed(true);
-  if (save) saveRecentSearch(query);
+  saveRecentSearch(query);
   renderDashboard(matches);
   applyStatusFilter();
 
-  if (scroll) {
-    // Give the browser a moment to lay out the newly shown dashboard
-    // before smooth-scrolling to it.
-    requestAnimationFrame(() => {
-      els.dashboard.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  }
+  // Give the browser a moment to lay out the newly shown dashboard
+  // before smooth-scrolling to it.
+  requestAnimationFrame(() => {
+    els.dashboard.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 }
-
-// Live search as the customer types (debounced), in addition to the
-// explicit Search button/Enter. Doesn't save to "Recent" or scroll the
-// page, since the customer hasn't deliberately submitted yet — only a
-// full Enter/click/chip-tap does that.
-let searchDebounceTimer = null;
-const SEARCH_DEBOUNCE_MS = 400;
-els.searchInput.addEventListener("input", () => {
-  clearTimeout(searchDebounceTimer);
-  const value = els.searchInput.value;
-  if (!normalizeUsername(value)) {
-    doSearch("");
-    return;
-  }
-  if (normalizeUsername(value).length < 2) return;
-  searchDebounceTimer = setTimeout(() => {
-    doSearch(value, { save: false, scroll: false });
-  }, SEARCH_DEBOUNCE_MS);
-});
 
 // Applies the "Filter by status" dropdown to the last search's matches.
 // The dashboard totals above always reflect ALL of the customer's
