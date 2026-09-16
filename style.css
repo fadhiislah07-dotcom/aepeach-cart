@@ -38,6 +38,9 @@
   --tint-leaf: #eaf5e4;
   --tint-rose: #fbeaec;
   --tint-neutral: #fff0f4;
+  /* Fixed alert red — same value in both themes so it always reads as
+     "urgent" against white text, regardless of light/dark mode. */
+  --urgent-bg: #d6435a;
 }
 
 :root[data-theme="dark"] {
@@ -157,6 +160,29 @@ h3 { font-size: 1rem; }
 .announcement-box--c2 { background: var(--peach-deep); }
 .announcement-box--c3 { background: var(--lilac-deep); }
 .announcement-box--c4 { background: var(--leaf-deep); }
+.announcement-box--urgent {
+  background: var(--urgent-bg);
+  position: relative;
+  animation: urgentPulse 2.2s ease-in-out infinite;
+}
+.announcement-box--urgent::after {
+  content: "URGENT";
+  position: absolute;
+  top: -9px;
+  right: 14px;
+  background: #fff;
+  color: var(--urgent-bg);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+}
+@keyframes urgentPulse {
+  0%, 100% { box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.25); }
+  50% { box-shadow: 0 0 0 5px rgba(214,67,90,0.25), inset 0 1px 0 rgba(255,255,255,0.25); }
+}
 .announcement-box__emoji {
   flex: 0 0 auto;
   width: 27px;
@@ -407,6 +433,13 @@ main {
   transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
 }
 .btn:active { transform: scale(0.97); }
+.btn:disabled,
+#searchInput:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
 .btn--primary {
   background: linear-gradient(90deg, var(--pink-deep), var(--pink-deeper));
   color: #fff;
@@ -818,7 +851,29 @@ main {
   align-items: center;
   gap: 10px;
 }
-.sync-status { color: var(--ink-muted); font-size: 0.82rem; margin: 0; }
+.sync-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink-muted);
+  font-size: 0.82rem;
+  margin: 0;
+}
+.sync-status.is-loading::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 11px;
+  height: 11px;
+  border: 2px solid var(--pink-soft);
+  border-top-color: var(--pink-deep);
+  border-radius: 50%;
+  animation: syncSpin 0.7s linear infinite;
+}
+.sync-status--error {
+  color: var(--rose-muted-deep);
+  font-weight: 700;
+}
+@keyframes syncSpin { to { transform: rotate(360deg); } }
 .footer-credit { color: var(--ink-muted); font-size: 0.78rem; margin: 6px 0 0; }
 .footer-link {
   color: var(--pink-deep);
