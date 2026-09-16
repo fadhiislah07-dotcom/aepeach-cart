@@ -535,10 +535,10 @@ main {
   background: var(--bg);
   border: 2px solid var(--pink-soft);
   border-radius: 999px;
-  padding: 8px 16px;
+  padding: 7px 16px;
   font-family: inherit;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--ink);
   cursor: pointer;
 }
